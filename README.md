@@ -14,6 +14,22 @@ TITANIUM 2 SUPPORT: Titanium 2 introduces some breaking layout changes. On iOS, 
 - Using Ti.UI.SIZE in a parent view, could cut the shadows of its children.
 - A view with solid background and with children views can not drop shadow itself (but the children will do)
 
+Update: to get shadows working correctly on titanium 2 or higher, add the shadow after the postlayout event. For example:
+
+
+	var postLayoutCallback  = function(e) {
+        view.removeEventListener('postlayout', postLayoutCallback);		//remove to avoid repeated calls
+        
+        view.setShadow({		//add the shadow
+        	shadowOffset:{x:0, y:6},
+        	shadowRadius:4,
+        	shadowOpacity:0.5
+        });	        
+    }
+    
+    view.addEventListener('postlayout', postLayoutCallback);
+
+
 
 ## Building and installing the TiViewShadow Module ##
 
